@@ -1,16 +1,16 @@
 require 'helper'
 
 class TestImapXoauthAuthenticator < Test::Unit::TestCase
-  
+
   def setup
   end
-  
+
   def test_xoauth_authenticator_is_enabled
     authenticators = Net::IMAP.__send__('class_variable_get', '@@authenticators')
     assert_not_nil authenticators['XOAUTH']
     assert_equal authenticators['XOAUTH'], GmailXoauth::ImapXoauthAuthenticator
   end
-  
+
   def test_authenticate_with_invalid_credentials
     imap = Net::IMAP.new('imap.gmail.com', 993, usessl = true, certs = nil, verify = false)
     assert_raise(Net::IMAP::NoResponseError) do
@@ -20,10 +20,10 @@ class TestImapXoauthAuthenticator < Test::Unit::TestCase
       )
     end
   end
-  
+
   def test_authenticate_with_valid_credentials
     return unless VALID_CREDENTIALS
-    
+
     imap = Net::IMAP.new('imap.gmail.com', 993, usessl = true, certs = nil, verify = false)
     imap.authenticate('XOAUTH', VALID_CREDENTIALS[:email],
       :consumer_key => VALID_CREDENTIALS[:consumer_key],
@@ -48,10 +48,10 @@ class TestImapXoauthAuthenticator < Test::Unit::TestCase
       )
     end
   end
-  
+
   def test_2_legged_authenticate_with_valid_credentials
     return unless VALID_CREDENTIALS
-    
+
     imap = Net::IMAP.new('imap.gmail.com', 993, usessl = true, certs = nil, verify = false)
     imap.authenticate('XOAUTH', VALID_CREDENTIALS[:email],
       :two_legged => true,

@@ -3,13 +3,13 @@ require 'oauth'
 
 module GmailXoauth
   class ImapXoauthAuthenticator
-    
+
     def process(data)
       build_sasl_client_request(@request_url, @oauth_string)
     end
-    
+
   private
-    
+
     # +user+ is an email address: roger@gmail.com
     # +password+ is a hash of oauth parameters, see +build_oauth_string+
     def initialize(user, password)
@@ -22,9 +22,9 @@ module GmailXoauth
 
       @oauth_string = build_oauth_string(@request_url, password)
     end
-    
+
     include OauthString
-    
+
   end
 end
 
